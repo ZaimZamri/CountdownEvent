@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Countdown Page</title>
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=cabinet-grotesk@700,800&display=swap" rel="stylesheet" />
+<html lang="en" data-theme="dark" style="--bg-image: url('https://images.unsplash.com/photo-1669812848176-593dcd49f308?q=80&amp;w=1470&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.1.0&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cameron With &lt;3 · Countdown Page</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&amp;f[]=cabinet-grotesk@700,800&amp;display=swap" rel="stylesheet">
   <style>
     :root, [data-theme="light"] {
       --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
@@ -319,7 +318,7 @@
       *{transition:none !important}
     }
   </style>
-</head>
+<style type="text/css"></style></head>
 <body>
   <a href="#main" class="sr-only">Skip to content</a>
   <div class="page" id="pageRoot">
@@ -344,16 +343,16 @@
 
       <section class="hero" aria-labelledby="countdownTitle">
         <div class="eyebrow">Event countdown</div>
-        <h1 id="countdownTitle">My Special Date</h1>
-        <p class="subtitle" id="dateSummary">Counting down to 2026-12-31 23:59.</p>
+        <h1 id="countdownTitle">Cameron With &lt;3</h1>
+        <p class="subtitle" id="dateSummary">Counting down to July 20, 2026 at 8:00 AM.</p>
 
         <div class="countdown" aria-label="Countdown timer">
           <article class="time-card">
-            <div class="time-value" id="days">000</div>
+            <div class="time-value" id="days">019</div>
             <div class="time-label">Days</div>
           </article>
           <article class="time-card">
-            <div class="time-value" id="hours">00</div>
+            <div class="time-value" id="hours">21</div>
             <div class="time-label">Hours</div>
           </article>
           <article class="time-card">
@@ -361,22 +360,22 @@
             <div class="time-label">Minutes</div>
           </article>
           <article class="time-card">
-            <div class="time-value" id="seconds">00</div>
+            <div class="time-value" id="seconds">39</div>
             <div class="time-label">Seconds</div>
           </article>
         </div>
 
         <div class="footer-note">
           <span class="pill" id="statusPill">Live and updating every second</span>
-          <span class="pill" id="targetPill">Target: 2026-12-31 23:59</span>
+          <span class="pill" id="targetPill">Target: July 20, 2026 at 8:00 AM</span>
         </div>
       </section>
     </main>
   </div>
 
-  <div class="overlay" id="overlay"></div>
+  <div class="overlay show" id="overlay"></div>
 
-  <aside class="settings" id="settingsPanel" aria-labelledby="settingsHeading" aria-hidden="true">
+  <aside class="settings open" id="settingsPanel" aria-labelledby="settingsHeading" aria-hidden="false">
     <div class="settings-top">
       <div>
         <h2 id="settingsHeading">Customize</h2>
@@ -389,18 +388,18 @@
 
     <div class="field">
       <label for="titleInput">Title</label>
-      <input class="input" id="titleInput" type="text" value="My Special Date" maxlength="80" />
+      <input class="input" id="titleInput" type="text" value="Cameron With <3" maxlength="80">
     </div>
 
     <div class="field">
-      <label for="dateInput">Target date & time</label>
-      <input class="input" id="dateInput" type="datetime-local" value="2026-12-31T23:59" />
+      <label for="dateInput">Target date &amp; time</label>
+      <input class="input" id="dateInput" type="datetime-local" value="2026-07-20T08:00">
       <div class="help">Use your local time. The timer updates instantly.</div>
     </div>
 
     <div class="field">
       <label for="bgInput">Background image URL</label>
-      <input class="input" id="bgInput" type="url" value="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80" />
+      <input class="input" id="bgInput" type="url" value="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&amp;fit=crop&amp;w=1600&amp;q=80">
       <div class="help">Paste a public image URL. It will update the page and the downloadable source code.</div>
     </div>
 
@@ -414,13 +413,13 @@
     </div>
   </aside>
 
-  <div class="done" id="toast" role="status" aria-live="polite">New HTML downloaded with your updated settings.</div>
+  <div class="done" id="toast" role="status" aria-live="polite">Live preview updated.</div>
 
   <script>
     const state = {
-      title: 'My Special Date',
-      date: '2026-12-31T23:59',
-      background: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80'
+      title: "Cameron With <3",
+      date: "2026-07-20T08:00",
+      background: "https://images.unsplash.com/photo-1669812848176-593dcd49f308?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     };
 
     const els = {
@@ -580,5 +579,6 @@
     updateCountdown();
     timer = setInterval(updateCountdown, 1000);
   </script>
-</body>
-</html>
+
+
+</body></html>
