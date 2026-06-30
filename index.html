@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Countdown</title>
+<style>
+html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#fff}
+body{display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#111,#333);overflow:hidden}
+#bg{position:fixed;inset:0;background-size:cover;background-position:center;filter:brightness(.45)}
+#bg::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.25);backdrop-filter:blur(2px)}
+.card{position:relative;text-align:center;padding:20px;z-index:1}
+h1{font-size:clamp(2rem,6vw,4.5rem);font-weight:300;margin:.2em}
+.date{opacity:.8}
+.count{display:flex;gap:20px;justify-content:center;margin:30px 0;flex-wrap:wrap}
+.box{min-width:90px}.num{font-size:clamp(2rem,5vw,4rem);font-weight:700}.lbl{opacity:.7}
+.gear{position:fixed;right:20px;bottom:20px;font-size:28px;cursor:pointer;z-index:2}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);align-items:center;justify-content:center;z-index:5}
+.panel{background:rgba(255,255,255,.1);padding:20px;border-radius:16px;width:min(90%,420px)}
+input{width:100%;margin:8px 0 14px;padding:10px;border-radius:8px;border:none}
+button{padding:10px 16px;border:none;border-radius:8px;cursor:pointer}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+<div class="card">
+<h1 id="title"></h1>
+<div class="count">
+<div class="box"><div class="num" id="d">0</div><div class="lbl">Hari</div></div>
+<div class="box"><div class="num" id="h">0</div><div class="lbl">Jam</div></div>
+<div class="box"><div class="num" id="m">0</div><div class="lbl">Minit</div></div>
+<div class="box"><div class="num" id="s">0</div><div class="lbl">Saat</div></div>
+</div>
+<div class="date" id="dateTxt"></div>
+</div>
+<div class="gear" onclick="openSettings()">⚙️</div>
+<div class="modal" id="modal">
+<div class="panel">
+<h2>Settings</h2>
+<label>Event Name</label>
+<input id="eventName">
+<label>Target Date & Time</label>
+<input type="datetime-local" id="eventDate">
+<label>Background Image</label>
+<input type="file" id="bgFile" accept="image/*">
+<button onclick="save()">Save</button>
+<button onclick="closeSettings()">Cancel</button>
+</div></div>
+<script>
+const def={name:"My Countdown",date:"2026-12-31T23:59",bg:""};
+let cfg=JSON.parse(localStorage.getItem("countCfg")||"null")||def;
+function apply(){
+title.textContent=cfg.name;
+dateTxt.textContent=new Date(cfg.date).toLocaleString();
+if(cfg.bg)bg.style.backgroundImage=`url(${cfg.bg})`;
+}
+function tick(){
+let t=new Date(cfg.date)-new Date();
+if(t<0)t=0;
+let d=Math.floor(t/86400000);t%=86400000;
+let h=Math.floor(t/3600000);t%=3600000;
+let m=Math.floor(t/60000);t%=60000;
+let s=Math.floor(t/1000);
+["d","h","m","s"].forEach((id,i)=>document.getElementById(id).textContent=[d,h,m,s][i]);
+}
+setInterval(tick,1000);apply();tick();
+function openSettings(){
+modal.style.display="flex";
+eventName.value=cfg.name;
+eventDate.value=cfg.date;
+}
+function closeSettings(){modal.style.display="none";}
+bgFile.onchange=e=>{
+const f=e.target.files[0]; if(!f)return;
+const r=new FileReader();
+r.onload=()=>{cfg.bg=r.result;}
+r.readAsDataURL(f);
+}
+function save(){
+cfg.name=eventName.value;
+cfg.date=eventDate.value;
+localStorage.setItem("countCfg",JSON.stringify(cfg));
+apply();tick();closeSettings();
+}
+document.addEventListener("keydown",e=>{
+if(e.key=="s"||e.key=="S")openSettings();
+if(e.key=="f"||e.key=="F"){if(!document.fullscreenElement)document.documentElement.requestFullscreen();else document.exitFullscreen();}
+if(e.key=="Escape")closeSettings();
+});
+</script>
+</body></html>
